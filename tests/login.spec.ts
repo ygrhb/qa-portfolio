@@ -33,7 +33,7 @@ test.describe('Logowanie na saucedemo', () => {
     await page.getByTestId('login-button').click();
 
     // użytkownik dostaje komunikat o blokadzie
-    await expect(page.getByTestId('error')).toContainText('testing');
+    await expect(page.getByTestId('error')).toContainText('this user has been locked out');
     // i nie trafia na listę produktów
     await expect(page).toHaveURL('/');
   });
