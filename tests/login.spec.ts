@@ -18,11 +18,11 @@ test.describe('Logowanie na saucedemo', () => {
   });
 
   test('błędne hasło pokazuje komunikat o błędzie', async ({ page }) => {
-    await page.getByPlaceholder('Username').fill('standard_user');
-    await page.getByPlaceholder('Password').fill('zle_haslo');
-    await page.getByRole('button', { name: 'Login' }).click();
+    await page.getByTestId('username').fill('standard_user');
+    await page.getByTestId('password').fill('zle_haslo');
+    await page.getByTestId('login-button').click();
 
-    await expect(page.getByText(/do not match any user/i)).toBeVisible();
+    await expect(page.getByTestId('error')).toContainText('do not match any user');
     await expect(page).toHaveURL('/');
   });
 
@@ -53,7 +53,7 @@ test.describe('Logowanie na saucedemo', () => {
     await page.getByTestId('username').fill('standard_user');
     await page.getByTestId('login-button').click();
 
-    // użytkownik dostaje komunikat o potrzebnym loginie
+    // użytkownik dostaje komunikat o potrzebnym haśle
     await expect(page.getByTestId('error')).toContainText('Password is required');
     // i nie trafia na listę produktów
     await expect(page).toHaveURL('/');
